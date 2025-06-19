@@ -1,0 +1,25 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+
+dataSources:
+  - kind: ethereum
+    name: MessageBoard
+    network: dev
+    source:
+      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+      abi: MessageBoard
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Message
+      abis:
+        - name: MessageBoard
+          file: ./abis/MessageBoard.json
+      eventHandlers:
+        - event: NewMessage(indexed address,string,uint256)
+          handler: handleNewMessage
+      file: ./src/message-board.ts
